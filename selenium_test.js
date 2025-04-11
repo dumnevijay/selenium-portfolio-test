@@ -47,7 +47,7 @@ export async function captureFailureScreenshot(driver, testName) {
 
 // retryTest function to retry a failed test
 async function retryTest(fn) {
-    let retries = 1;
+    let retries = 1;  // Number of retries, default to 1. If set to 3, the test will be retried 3 times.
     let delay = 2000;
     let lastError;
     for (let i = 0; i < retries; i++) {
