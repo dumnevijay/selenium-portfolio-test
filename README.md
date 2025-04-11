@@ -5,7 +5,7 @@ This project contains an automated frontend test using Selenium WebDriver for te
 ## 📁 Project Structure
 
 ```
-/Selenium_Test
+/selenium-portfolio-test
 ├── selenium_test.js          # Main test file
 ├── package.json              # Project config
 ├── package-lock.json         # Dependency lock file
