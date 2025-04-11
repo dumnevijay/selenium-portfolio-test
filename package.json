@@ -1,0 +1,13 @@
+{
+    "name": "selenium-test",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+      "test": "node selenium_test.js"
+    },
+    "dependencies": {
+      "chromedriver": "^135.0.1",
+      "selenium-webdriver": "^4.31.0"
+    }
+  }
+  
