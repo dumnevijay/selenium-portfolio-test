@@ -79,35 +79,40 @@ export async function TEST_PORTFOLIO() {
     try {
        
         await driver.get(URL); // Navigate to the URL
+        // driver.manage().window().maximize();
 
         // check for the page title.
         const title = await driver.getTitle();  // getting the page title
-        assert.strictEqual(title, "Dumne Vijay - Software Engineer", "Page title is not displayed as expected"); // check for the page title
+        assert.strictEqual(title, "Dumne Vijay - Software Engineer Portfolio", "Page title is not displayed as expected"); // check for the page title
         console.log("Page Title is displayed properly as expected");  
 
         // check for the heading text.
-        const headings = await driver.wait(until.elementsLocated(By.className("container")), 5000);  // getting elements with class "container" and getting the first element text.
-        const headingText = await headings[0].getText();  // getting the first element text
-        let headingTextCheck = `DUMNE VIJAY\nQA Automation & Full-Stack Engineer`;
+        const containers = await driver.wait(until.elementsLocated(By.className("container")), 5000);  // getting elements with class "container" and getting the first element text.
+        const headingText = await containers[0].getText();  // getting the first container element text
+        let headingTextCheck = `DUMNE VIJAY\nQA Automation & Full-Stack Engineer\nAbout\nExperience\nSkills\nProjects\nContact`;
         assert.strictEqual(headingText, headingTextCheck, "Heading text is not displayed as expected");  // check for the heading text
         console.log("Heading Text is displayed properly as expected");
         
         const sections = await driver.wait(until.elementsLocated(By.className("section")), 5000);  // getting elements with class "section"
 
         // check for the section First text
-        let sectionFirstTextCheck = `About Me\nAspiring software engineer with hands-on experience in both frontend and backend technologies seeking an opportunity to leverage my skills in test automation, API development, and UI implementation. Passionate about creating reliable, high-performance applications while continuing to grow my technical expertise across the full development stack. Eager to contribute my problem-solving abilities and collaborative mindset to a forward-thinking team that values innovation and quality-driven development.`;
+        let sectionFirstTextCheck = `About Me
+Aspiring software engineer with hands-on experience in both frontend and backend technologies seeking an opportunity to leverage my skills in test automation, API development, and UI implementation. Passionate about creating reliable, high-performance applications while continuing to grow my technical expertise across the full development stack.
+Eager to contribute my problem-solving abilities and collaborative mindset to a forward-thinking team that values innovation and quality-driven development.`;
         let sectionText = await sections[0].getText();  // getting the first element text
         assert.strictEqual(
             sectionText, 
             sectionFirstTextCheck, 
             "Section One text is not displayed as expected"
         );  // check for the section First text
-        console.log("Section One Text is displayed properly as expected");
+        console.log("Section First Text is displayed properly as expected");
 
         // check for the section Second text
         let sectionSecondTextCheck = `Experience
-Software Engineer Intern @ RapidKen.AI | 3-month Internship
-During my internship at RapidKen.AI, I have
+Software Engineer Intern
+@ RapidKen.AI
+3-month Internship
+During my internship at RapidKen.AI, I have:
 Implemented automated frontend testing using Selenium WebDriver, improved application stability.
 Developed comprehensive API testing frameworks using Python's unittest library, achieving 90%+ test coverage across critical endpoints.
 Conducted performance testing with Locust.
@@ -116,14 +121,24 @@ Utilized Google Colab to implement OpenAI API integrations for data collection p
 Collaborated with development team to implement frontend features based on design requirements.
 Participated in agile development processes including daily stand-ups, sprint planning, and retrospectives.
 Documented testing procedures and created detailed bug reports, enhancing team communication and reducing bug resolution time.
-Technologies: Python, Flask, Google Colab, OpenAI API, Selenium, unittest, Locust, HTML, CSS, JavaScript.`
+Technologies Used:
+Python
+Flask
+Google Colab
+OpenAI API
+Selenium
+unittest
+Locust
+HTML
+CSS
+JavaScript`
         sectionText = await sections[1].getText();  // getting the Second element text
         assert.strictEqual(
             sectionText, 
             sectionSecondTextCheck, 
             "Section Two text is not displayed as expected"
         );  // check for the section Second text
-        console.log("Section Two Text is displayed properly as expected");
+        console.log("Section Second Text is displayed properly as expected");
 
         // check for the section Third text
         let sectionThirdTextCheck = `Skills
@@ -132,30 +147,42 @@ Develop user interfaces using HTML, CSS, and JavaScript as per the requirements 
 Backend
 Develop APIs using Flask as per the requirements of the project.
 Frontend Testing
-Frontend Testing using Selenium Testing.
-Unit Testing
-API Testing using Pytest.
+Frontend Testing using Selenium WebDriver with detailed test scenarios and reports.
+API Testing
+API Testing using Pytest with comprehensive test coverage and validation.
 Performance Testing
-Performance Testing using Locust.
-Google Colab
-Wrote Python scripts using Google Colab.`
+Performance Testing using Locust with detailed metrics analysis and reporting.
+Data Processing
+Python scripts for data processing and analysis using Google Colab and Jupyter Notebooks.`
         sectionText = await sections[2].getText();  // getting the Third element text
         assert.strictEqual(
             sectionText, 
             sectionThirdTextCheck, 
             "Section Three text is not displayed as expected"
         );  // check for the section Third text
-        console.log("Section Three Text is displayed properly as expected");
+        console.log("Section Third Text is displayed properly as expected");
 
         // check for the section Fourth text
-        let sectionFourthTextCheck = `Contact Me
-Let's get in touch. Send me a message:
-SEND MESSAGE
-Hyderabad, India
-Gmail
-GitHub
-LinkedIn
-Twitter(X)`
+        let sectionFourthTextCheck = `Projects
+Test Automation Framework
+Developed a comprehensive testing framework using Selenium and Python for frontend testing automation.
+Python
+Selenium
+unittest
+View Code
+API Testing Suite
+Created a robust API testing suite with Python and pytest for validating RESTful endpoints.
+Python
+pytest
+Requests
+View Code
+Performance Testing Dashboard
+Built a performance testing dashboard using Locust and Flask for visualizing test results.
+Python
+Flask
+Locust
+JavaScript
+View Code`
         sectionText = await sections[3].getText();  // getting the Fourth element text
         assert.strictEqual(
             sectionText, 
@@ -163,6 +190,54 @@ Twitter(X)`
             "Section Four text is not displayed as expected"
         );  // check for the section Fourth text
         console.log("Section Four Text is displayed properly as expected");
+
+        // check for the section Fifth text
+        let sectionFifthTextCheck = `Contact Me
+Location
+Hyderabad, India
+Email
+18253c090@gmail.com
+Connect With Me`
+        sectionText = await sections[4].getText();  // getting the Fifth element text
+        assert.strictEqual(
+            sectionText, 
+            sectionFifthTextCheck, 
+            "Section Four text is not displayed as expected"
+        );  // check for the section Fifth text
+        console.log("Section Fifth Text is displayed properly as expected");
+
+        // check for dark mode toggle
+        const header = await driver.findElement(By.css("header"));
+        const body = await driver.findElement(By.css("body"));
+        // check for header and body background color
+        assert.strictEqual(
+            await header.getCssValue("background-color"),
+            "rgba(18, 18, 18, 1)",
+            "Background color is not displayed as expected for the header tag for dark mode."
+        );
+        assert.strictEqual(
+            await body.getCssValue("background-color"),
+            "rgba(26, 26, 26, 1)",
+            "Background color is not displayed as expected for the body tag for dark mode."
+        );
+        console.log("Dark mode toggle is displayed properly as expected");
+        
+        // check for light mode toggle
+        const themeToggleButton = await driver.wait(until.elementsLocated(By.id("theme-toggle")), 5000);  // waiting for the theme toggle button
+        await themeToggleButton[0].click();  // clicking the theme toggle button to switch to light mode
+        await driver.sleep(500);  // waiting for 500ms, to let the theme change
+        // check for header and body background color
+        assert.strictEqual(
+            await header.getCssValue("background-color"),
+            "rgba(255, 255, 255, 1)",
+            "Background color is not displayed as expected for the header tag for light mode."
+        );
+        assert.strictEqual(
+            await body.getCssValue("background-color"),
+            "rgba(245, 245, 245, 1)",
+            "Background color is not displayed as expected for the body tag for light mode."
+        );
+        console.log("Light mode toggle is displayed properly as expected");
 
         console.log("TEST_PASSED: TEST_PORTFOLIO");  
         
